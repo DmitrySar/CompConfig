@@ -10,6 +10,7 @@
     <input placeholder="model" type="text" name="manufacturer.model"/><br>
     <input placeholder="S/N" type="text" name="manufacturer.serialNumber"><br>
     <input placeholder="price" type="text" name="manufacturer.price" /><br>
+    <input placeholder="image URL" type="text" name="manufacturer.urlImage">
 
 </div>
 
@@ -17,12 +18,16 @@
     <td th:text="${m.manufacturer.vendor}"/>
     <td th:text="${m.manufacturer.model}"/>
     <td th:text="${m.manufacturer.price}"/>
+    <td>
+        <img width="150" height="150" th:src="@{${m.manufacturer.urlImage}}"/>
+    </td>
 </div>
 
 <div th:fragment="tableTh">
     <th>vendor</th>
     <th>model</th>
     <th>price</th>
+    <th>image</th>
 
 </div>
 </body>
