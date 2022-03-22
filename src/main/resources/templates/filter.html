@@ -19,5 +19,41 @@
         </tr>
     </table>
 </div>
+
+<div>
+    <table class="modules">
+        <th>Select</th>
+        <th>Ram type</th>
+        <div th:replace="fragments/manufacturer :: tableTh" />
+        <tr th:each="r: ${ramList}">
+            <td><a th:href="@{/filter(ramType=${r.ramType})}">select</a></td>
+            <td th:text="${r.ramType}" />
+            <span th:replace="fragments/manufacturer :: table(m = ${r})" />
+        </tr>
+    </table>
+</div>
+
+<div>
+    <table class="modules">
+        <tr>
+            <th>Select</th>
+            <th>FormFactor</th>
+            <th>Cpu socket</th>
+            <th>Ram type</th>
+            <th>Hdd type</th>
+            <div th:replace="fragments/manufacturer :: tableTh" />
+        </tr>
+        <tr th:each="mb: ${mbList}">
+            <td><a th:href="@{/filter(ramType=${mb.ramType}, socket=${mb.cpuSocket})}">select</a></td>
+            <td th:text="${mb.caseFormFactor}" />
+            <td th:text="${mb.cpuSocket}" />
+            <td th:text="${mb.ramType}" />
+            <td th:text="${mb.hddType}" />
+            <span th:replace="fragments/manufacturer :: table(m = ${mb})" />
+        </tr>
+    </table>
+</div>
+
+
 </body>
 </html>
