@@ -34,10 +34,12 @@ public class FilterController {
     @GetMapping
     public String getListElements(@RequestParam(defaultValue = "") String socket,
                                   @RequestParam(defaultValue = "") String ramType,
+                                  @RequestParam(defaultValue = "") String cpuModel,
                                   Model model) {
         List<Cpu> cpuList = StreamSupport
                 .stream(cpuRepository.findAll().spliterator(), false)
                 .filter(cpu -> cpu.getCpuSocket().name().contains(socket))
+                .filter(cpu -> cpu.getManufacturer().getModel().contains(cpuModel))
                 .collect(Collectors.toList());
         List<MotherBoard> mbList = StreamSupport
                 .stream(mbRepository.findAll().spliterator(), false)
@@ -53,6 +55,7 @@ public class FilterController {
         model.addAttribute("ramList", ramList);
         model.addAttribute("socket", socket);
         model.addAttribute("ramType", ramType);
+        model.addAttribute("cpuModel", cpuModel);
         return "/filter";
     }
 }
