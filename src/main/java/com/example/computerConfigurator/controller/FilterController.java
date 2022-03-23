@@ -51,6 +51,8 @@ public class FilterController {
         model.addAttribute("cpuList", cpuList);
         model.addAttribute("mbList", mbList);
         model.addAttribute("ramList", ramList);
+        model.addAttribute("socket", socket);
+        model.addAttribute("ramType", ramType);
         return "/filter";
     }
 }

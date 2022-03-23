@@ -13,7 +13,7 @@
         <th>Socket</th>
         <div th:replace="fragments/manufacturer :: tableTh" />
         <tr th:each="c: ${cpuList}">
-            <td><a th:href="@{/filter(socket=${c.cpuSocket})}">select</a></td>
+            <td><a th:href="@{/filter(socket=${c.cpuSocket}, ramType=${ramType})}">select</a></td>
             <td th:text="${c.cpuSocket}" />
             <span th:replace="fragments/manufacturer :: table(m = ${c})" />
         </tr>
@@ -26,7 +26,7 @@
         <th>Ram type</th>
         <div th:replace="fragments/manufacturer :: tableTh" />
         <tr th:each="r: ${ramList}">
-            <td><a th:href="@{/filter(ramType=${r.ramType})}">select</a></td>
+            <td><a th:href="@{/filter(ramType=${r.ramType}, socket=${socket})}">select</a></td>
             <td th:text="${r.ramType}" />
             <span th:replace="fragments/manufacturer :: table(m = ${r})" />
         </tr>
