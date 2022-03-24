@@ -35,6 +35,8 @@ public class FilterController {
     public String getListElements(@RequestParam(defaultValue = "") String socket,
                                   @RequestParam(defaultValue = "") String ramType,
                                   @RequestParam(defaultValue = "0") int cpuId,
+                                  @RequestParam(defaultValue = "0") int ramId,
+                                  @RequestParam(defaultValue = "0") int mbId,
                                   Model model) {
         ArrayList<Integer> sum = new ArrayList<>();
         List<Cpu> cpuList = StreamSupport
@@ -47,11 +49,13 @@ public class FilterController {
                 .stream(mbRepository.findAll().spliterator(), false)
                 .filter(mb -> mb.getCpuSocket().name().contains(socket))
                 .filter(mb -> mb.getRamType().name().contains(ramType))
+                .filter(mb -> mbId == 0 || mb.getId() == mbId)
                 .peek(p -> sum.add(p.getManufacturer().getPrice()))
                 .collect(Collectors.toList());
         List<Ram> ramList = StreamSupport
                 .stream(ramRepository.findAll().spliterator(), false)
                 .filter(ram -> ram.getRamType().name().contains(ramType))
+                .filter(r -> ramId == 0|| r.getId() == ramId)
                 .peek(p -> sum.add(p.getManufacturer().getPrice()))
                 .collect(Collectors.toList());
         model.addAttribute("cpuList", cpuList);
@@ -60,6 +64,8 @@ public class FilterController {
         model.addAttribute("socket", socket);
         model.addAttribute("ramType", ramType);
         model.addAttribute("cpuId", cpuId);
+        model.addAttribute("ramId", ramId);
+        model.addAttribute("mbId", mbId);
         model.addAttribute("sumOrder", sum.stream().mapToInt(Integer::valueOf).sum());
         return "/filter";
     }
