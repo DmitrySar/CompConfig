@@ -18,7 +18,7 @@
         <th>Socket</th>
         <div th:replace="fragments/manufacturer :: tableTh" />
         <tr th:each="c: ${cpuList}">
-            <td><a th:href="@{/filter(socket=${c.cpuSocket}, ramType=${ramType}, cpuModel=${c.manufacturer.model})}">select</a></td>
+            <td><a th:href="@{/filter(socket=${c.cpuSocket}, ramType=${ramType}, cpuId=${c.id})}">select</a></td>
             <td th:text="${c.cpuSocket}" />
             <span th:replace="fragments/manufacturer :: table(m = ${c})" />
         </tr>
@@ -31,7 +31,7 @@
         <th>Ram type</th>
         <div th:replace="fragments/manufacturer :: tableTh" />
         <tr th:each="r: ${ramList}">
-            <td><a th:href="@{/filter(ramType=${r.ramType}, socket=${socket}, cpuModel=${cpuModel})}">select</a></td>
+            <td><a th:href="@{/filter(ramType=${r.ramType}, socket=${socket}, cpuId=${cpuId})}">select</a></td>
             <td th:text="${r.ramType}" />
             <span th:replace="fragments/manufacturer :: table(m = ${r})" />
         </tr>
@@ -49,7 +49,7 @@
             <div th:replace="fragments/manufacturer :: tableTh" />
         </tr>
         <tr th:each="mb: ${mbList}">
-            <td><a th:href="@{/filter(ramType=${mb.ramType}, socket=${mb.cpuSocket}, cpuModel=${cpuModel})}">select</a></td>
+            <td><a th:href="@{/filter(ramType=${mb.ramType}, socket=${mb.cpuSocket}, cpuId=${cpuId})}">select</a></td>
             <td th:text="${mb.caseFormFactor}" />
             <td th:text="${mb.cpuSocket}" />
             <td th:text="${mb.ramType}" />

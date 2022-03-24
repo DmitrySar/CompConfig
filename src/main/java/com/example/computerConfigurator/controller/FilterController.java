@@ -34,13 +34,13 @@ public class FilterController {
     @GetMapping
     public String getListElements(@RequestParam(defaultValue = "") String socket,
                                   @RequestParam(defaultValue = "") String ramType,
-                                  @RequestParam(defaultValue = "") String cpuModel,
+                                  @RequestParam(defaultValue = "0") int cpuId,
                                   Model model) {
         ArrayList<Integer> sum = new ArrayList<>();
         List<Cpu> cpuList = StreamSupport
                 .stream(cpuRepository.findAll().spliterator(), false)
                 .filter(cpu -> cpu.getCpuSocket().name().contains(socket))
-                .filter(cpu -> cpu.getManufacturer().getModel().contains(cpuModel))
+                .filter(cpu -> cpuId == 0 || cpu.getId() == cpuId)
                 .peek(p -> sum.add(p.getManufacturer().getPrice()))
                 .collect(Collectors.toList());
         List<MotherBoard> mbList = StreamSupport
@@ -59,7 +59,7 @@ public class FilterController {
         model.addAttribute("ramList", ramList);
         model.addAttribute("socket", socket);
         model.addAttribute("ramType", ramType);
-        model.addAttribute("cpuModel", cpuModel);
+        model.addAttribute("cpuId", cpuId);
         model.addAttribute("sumOrder", sum.stream().mapToInt(Integer::valueOf).sum());
         return "/filter";
     }
