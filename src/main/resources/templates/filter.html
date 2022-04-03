@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <title>Filter</title>
     <link href="css/table.css" rel="stylesheet">
+    <link href="css/resize.css" rel="stylesheet">
 </head>
 <body>
-<div th:replace="fragments/head :: navigations"/>
+<div th:replace="fragments/head :: navigations" />
 
 <div>
     <h2 th:text="'Всего: ' + ${sumOrder} + ' руб.'" />
 </div>
 
 <div>
+    <div>
+        <h1>Процессор</h1>
+    </div>
     <table class="modules">
         <th>Select</th>
         <th>Socket</th>
         <div th:replace="fragments/manufacturer :: tableTh" />
         <tr th:each="c: ${cpuList}">
             <td><a th:href="@{/filter(socket=${c.cpuSocket},
+                caseFormFactor=${caseFormFactor},
+                hddType=${hddType},
                 ramType=${ramType},
                 cpuId=${c.id},
                 ramId=${ramId},
+                hddId=${hddId},
+                caseBlockId=${caseBlockId},
                 mbId=${mbId})}">select</a></td>
             <td th:text="${c.cpuSocket}" />
             <span th:replace="fragments/manufacturer :: table(m = ${c})" />
@@ -30,17 +38,23 @@
 </div>
 
 <div>
+    <div>
+        <h1>Оперативная память</h1>
+    </div>
     <table class="modules">
         <th>Select</th>
         <th>Ram type</th>
         <div th:replace="fragments/manufacturer :: tableTh" />
         <tr th:each="r: ${ramList}">
             <td><a th:href="@{/filter(ramType=${r.ramType},
+                caseFormFactor=${caseFormFactor},
+                hddType=${hddType},
                 socket=${socket},
                 cpuId=${cpuId},
                 ramId=${r.id},
-                mbId=${mbId})}
-            ">select</a></td>
+                hddId=${hddId},
+                caseBlockId=${caseBlockId},
+                mbId=${mbId})}">select</a></td>
             <td th:text="${r.ramType}" />
             <span th:replace="fragments/manufacturer :: table(m = ${r})" />
         </tr>
@@ -48,6 +62,81 @@
 </div>
 
 <div>
+    <div>
+        <h1>Жесткий диск</h1>
+    </div>
+    <table class="modules">
+        <th>Select</th>
+        <th>Hdd type</th>
+        <th>Size Gb</th>
+        <div th:replace="fragments/manufacturer :: tableTh" />
+        <tr th:each="h: ${hddList}">
+            <td><a th:href="@{/filter(hddType=${h.hddType},
+                caseFormFactor=${caseFormFactor},
+                ramType=${ramType},
+                cpuId=${cpuId},
+                ramId=${ramId},
+                mbId=${mbId},
+                gpuId=${gpuId},
+                caseBlockId=${caseBlockId},
+                hddId=${h.id})}">select</a></td>
+            <td th:text="${h.hddType}" />
+            <td th:text="${h.size}"/>
+            <span th:replace="fragments/manufacturer :: table(m = ${h})" />
+        </tr>
+    </table>
+</div>
+
+<div>
+    <div>
+        <h1>Видеокарта</h1>
+    </div>
+    <table class="modules">
+        <th>Select</th>
+        <th>Size Gb</th>
+        <div th:replace="fragments/manufacturer :: tableTh" />
+        <tr th:each="g: ${gpuList}">
+            <td><a th:href="@{/filter(gpuId=${g.id},
+                caseFormFactor=${caseFormFactor},
+                hddType=${hddType},
+                cpuId=${cpuId},
+                ramId=${ramId},
+                mbId=${mbId},
+                caseBlockId=${caseBlockId},
+                hddId=${hddId})}">select</a></td>
+            <td th:text="${g.size}"/>
+            <span th:replace="fragments/manufacturer :: table(m = ${g})" />
+        </tr>
+    </table>
+</div>
+
+<div>
+    <div>
+        <h1>Корпус</h1>
+    </div>
+    <table class="modules">
+        <th>Select</th>
+        <th>FormFactor</th>
+        <div th:replace="fragments/manufacturer :: tableTh" />
+        <tr th:each="c: ${caseList}">
+            <td><a th:href="@{/filter(caseBlockId=${c.id},
+                caseFormFactor=${c.caseFormFactor},
+                hddType=${hddType},
+                cpuId=${cpuId},
+                ramId=${ramId},
+                mbId=${mbId},
+                gpuId=${gpuId},
+                hddId=${hddId})}">select</a></td>
+            <td th:text="${c.caseFormFactor}" />
+            <span th:replace="fragments/manufacturer :: table(m = ${c})" />
+        </tr>
+    </table>
+</div>
+
+<div>
+    <div>
+        <h1>Материнская плата</h1>
+    </div>
     <table class="modules">
         <tr>
             <th>Select</th>
@@ -60,8 +149,13 @@
         <tr th:each="mb: ${mbList}">
             <td><a th:href="@{/filter(ramType=${mb.ramType},
                 socket=${mb.cpuSocket},
+                hddType=${mb.hddType},
+                caseFormFactor=${mb.caseFormFactor},
                 cpuId=${cpuId},
                 ramId=${ramId},
+                hddId=${hddId},
+                gpuId=${gpuId},
+                caseBlockId=${caseBlockId},
                 mbId=${mb.id})}">select</a></td>
             <td th:text="${mb.caseFormFactor}" />
             <td th:text="${mb.cpuSocket}" />
@@ -71,7 +165,6 @@
         </tr>
     </table>
 </div>
-
 
 </body>
 </html>

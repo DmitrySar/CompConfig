@@ -14,21 +14,20 @@
 
 </div>
 
-<div th:fragment="table(m)">
+<span th:fragment="table(m)">
     <td th:text="${m.manufacturer.vendor}"/>
     <td th:text="${m.manufacturer.model}"/>
     <td th:text="${m.manufacturer.price}"/>
     <td>
-        <img width="150" th:src="@{${m.manufacturer.urlImage}}"/>
+        <img class="scale" width="150" th:src="@{${m.manufacturer.urlImage}}"/>
     </td>
-</div>
+</span>
 
 <div th:fragment="tableTh">
     <th>vendor</th>
     <th>model</th>
     <th>price</th>
     <th>image</th>
-
 </div>
 </body>
 </html>
