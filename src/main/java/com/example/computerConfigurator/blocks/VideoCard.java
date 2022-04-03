@@ -15,5 +15,6 @@ public class VideoCard {
     private int id;
     @OneToOne(cascade = CascadeType.ALL)
     private Manufacturer manufacturer;
+    private int size;
 
 }
